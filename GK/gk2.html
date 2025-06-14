@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Professional CV</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Cinzel:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
+      body {
+        background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+        transition: background 0.5s, color 0.5s;
+        color: #333;
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+
+      .dark-mode {
+        background: linear-gradient(135deg, #2c3e50, #1a252f);
+        color: #ecf0f1;
+      }
+
+      #particles {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+      }
+
+      header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+        background: #fff;
+        padding: 0px 20px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      .dark-mode header {
+        background: #34495e;
+      }
+
+      .header-content {
+        max-width: 1500px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .logo {
+        font-family: "Cinzel", serif;
+        font-size: 4em;
+        font-weight: 700;
+        letter-spacing: 30px;
+        text-transform: uppercase;
+        display: flex;
+        align-items: center;
+        color: #fff;
+      }
+
+      .dark-mode .logo {
+        color: #34495e;
+      }
+
+      .logo span {
+        display: inline-block;
+        transition: text-shadow 0.3s ease, opacity 0.3s ease;
+        opacity: 0;
+      }
+
+      .logo .glow {
+        opacity: 1;
+        text-shadow: 0 0 10px #3498db, 0 0 20px #3498db, 0 0 30px #1abc9c;
+      }
+
+      .dark-mode .logo .glow {
+        text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff;
+      }
+
+      .right-header {
+        display: flex;
+        align-items: center;
+      }
+
+      .search-bar {
+        display: flex;
+        align-items: center;
+        position: relative;
+        transition: transform 0.3s ease;
+        margin-right: 15px;
+      }
+
+      .search-bar:hover {
+        transform: scale(1.05);
+      }
+
+      .search-bar input {
+        padding: 10px 40px 10px 15px;
+        border: none;
+        border-radius: 25px;
+        font-size: 1em;
+        outline: none;
+        background: rgba(255, 255, 255, 0.9);
+        color: #333;
+        box-shadow: 0 0 10px rgba(52, 152, 219, 0.5);
+        transition: box-shadow 0.3s, background 0.3s;
+        width: 300px;
+      }
+
+      .dark-mode .search-bar input {
+        background: rgba(52, 73, 94, 0.9);
+        color: #ecf0f1;
+        box-shadow: 0 0 10px rgba(26, 188, 156, 0.5);
+      }
+
+      .search-bar input:focus {
+        box-shadow: 0 0 15px rgba(52, 152, 219, 0.7);
+      }
+
+      .dark-mode .search-bar input:focus {
+        box-shadow: 0 0 15px rgba(26, 188, 156, 0.7);
+      }
+
+      .search-bar button {
+        position: absolute;
+        right: 5px;
+        background: transparent;
+        border: none;
+        color: #3498db;
+        font-size: 1.2em;
+        cursor: pointer;
+        transition: color 0.3s, transform 0.3s;
+        padding: 5px;
+      }
+
+      .dark-mode .search-bar button {
+        color: #1abc9c;
+      }
+
+      .search-bar button:hover {
+        color: #e74c3c;
+        transform: rotate(20deg);
+      }
+
+      .theme-toggle {
+        display: flex;
+        align-items: center;
+      }
+
+      .theme-toggle button {
+        background: none;
+        border: none;
+        font-size: 1.5em;
+        cursor: pointer;
+        color: #333;
+        transition: color 0.3s, transform 0.3s;
+      }
+
+      .dark-mode .theme-toggle button {
+        color: #ecf0f1;
+      }
+
+      .theme-toggle button:hover {
+        color: #e74c3c;
+        transform: scale(1.2);
+      }
+
+      .datetime {
+        font-size: 1em;
+        color: #333;
+        margin-left: 15px;
+        white-space: nowrap;
+      }
+
+      .dark-mode .datetime {
+        color: #ecf0f1;
+      }
+
+      .marquee-container {
+        background: #fff;
+        color: #333;
+        padding: 5px 0;
+        overflow: hidden;
+        white-space: nowrap;
+        margin-top: 0px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        position: relative;
+      }
+
+      .dark-mode .marquee-container {
+        background: #34495e;
+        color: #ecf0f1;
+      }
+
+      .marquee {
+        display: inline-block;
+        animation: marquee 30s linear infinite;
+        font-weight: bolder;
+        padding-right: 100%;
+      }
+
+      @keyframes marquee {
+        0% {
+          transform: translateX(100%);
+        }
+        100% {
+          transform: translateX(-100%);
+        }
+      }
+
+      .container {
+        max-width: 1000px;
+        margin: 200px auto 80px;
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        transition: background 0.5s;
+        position: relative;
+        z-index: 1;
+      }
+
+      .dark-mode .container {
+        background: #34495e;
+      }
+
+      .profile-section {
+        background: linear-gradient(90deg, #3498db, #1abc9c);
+        padding: 30px;
+        border-radius: 10px 10px 0 0;
+        color: #fff;
+        position: relative;
+        transform: translateY(0);
+        transition: transform 0.3s;
+        display: flex;
+        align-items: center;
+      }
+
+      .profile-section.scrolled {
+        transform: translateY(-10px);
+      }
+
+      .profile-section img {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid #fff;
+        animation: pulse 2s infinite ease-in-out;
+        margin-right: 150px;
+        margin-left: 70px;
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+          box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+        50% {
+          transform: scale(1.05);
+          box-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
+        }
+        100% {
+          transform: scale(1);
+          box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+      }
+
+      .profile-section .text {
+        flex: 1;
+        text-align: left;
+      }
+
+      .profile-section h2 {
+        font-size: 2.5em;
+        margin: 10px 0;
+        overflow: hidden;
+        white-space: nowrap;
+        animation: typing 3s steps(30, end) forwards;
+      }
+
+      @keyframes typing {
+        from {
+          width: 0;
+        }
+        to {
+          width: 100%;
+        }
+      }
+
+      .profile-section p {
+        font-size: 1.2em;
+        opacity: 0.9;
+      }
+
+      .divider {
+        height: 5px;
+        background: linear-gradient(to right, #3498db, #1abc9c);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        margin: 5px 0 20px 0;
+        border-radius: 2px;
+      }
+
+      .dark-mode .divider {
+        background: linear-gradient(to right, #11abc9, #3498db);
+      }
+
+      .content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        padding: 0 20px;
+      }
+
+      .left-column {
+        background: linear-gradient(
+          135deg,
+          rgba(52, 152, 219, 0.1),
+          rgba(26, 188, 156, 0.1)
+        );
+        border-radius: 5px;
+        padding: 15px;
+      }
+
+      .dark-mode .left-column {
+        background: linear-gradient(
+          135deg,
+          rgba(26, 188, 156, 0.2),
+          rgba(52, 152, 219, 0.2)
+        );
+      }
+
+      .section {
+        margin-bottom: 20px;
+        padding: 15px;
+        border-radius: 5px;
+        background: rgba(255, 255, 255, 0.9);
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+
+      .dark-mode .section {
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      .section.right {
+        border-left: 4px solid #3498db;
+      }
+
+      .dark-mode .section.right {
+        border-left-color: #1abc9c;
+      }
+
+      .section:hover {
+        transform: scale(1.03);
+        box-shadow: 0 0 15px rgba(52, 152, 219, 0.5);
+      }
+
+      .dark-mode .section:hover {
+        box-shadow: 0 0 15px rgba(26, 188, 156, 0.5);
+      }
+
+      .section.left:hover {
+        box-shadow: 0 0 15px rgba(52, 152, 219, 0.3);
+      }
+
+      .dark-mode .section.left:hover {
+        box-shadow: 0 0 15px rgba(26, 188, 156, 0.3);
+      }
+
+      .section.highlight {
+        transform: scale(1.05);
+        box-shadow: 0 0 20px rgba(231, 76, 60, 0.7);
+        transition: transform 0.5s, box-shadow 0.5s;
+      }
+
+      .section h2 {
+        font-size: 1.6em;
+        color: #3498db;
+        margin-bottom: 10px;
+      }
+
+      .dark-mode .section h2 {
+        color: #1abc9c;
+      }
+
+      .section ul {
+        list-style-type: none;
+      }
+
+      .section ul li {
+        margin-bottom: 8px;
+        position: relative;
+        padding-left: 30px;
+      }
+
+      .section.left ul li i {
+        position: absolute;
+        left: 0;
+        color: #e74c3c;
+        width: 20px;
+        text-align: center;
+      }
+
+      .section.right ul li {
+        padding-left: 20px;
+      }
+
+      .section.right ul li::before {
+        content: "➤";
+        position: absolute;
+        left: 0;
+        color: #e74c3c;
+      }
+
+      .progress-bar {
+        background: #ecf0f1;
+        height: 10px;
+        border-radius: 5px;
+        overflow: hidden;
+        margin-top: 5px;
+      }
+
+      .progress {
+        height: 100%;
+        background: linear-gradient(to right, #3498db, #1abc9c);
+        transition: width 0.5s ease-in-out;
+      }
+
+      .buttons {
+        text-align: center;
+        margin: 20px 0;
+      }
+
+      .btn {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1em;
+        transition: background 0.3s, transform 0.2s;
+        background: #e74c3c;
+        color: #fff;
+      }
+
+      .btn:hover {
+        background: #c0392b;
+        transform: scale(1.05);
+      }
+
+      footer {
+        background: linear-gradient(90deg, #3498db, #1abc9c);
+        color: #fff;
+        padding: 10px;
+        text-align: center;
+        position: relative;
+        bottom: 0;
+        width: 100%;
+        box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+      }
+
+      .dark-mode footer {
+        background: linear-gradient(90deg, #1abc9c, #3498db);
+      }
+
+      footer p {
+        font-size: 1em;
+        margin: 0;
+      }
+
+      footer a {
+        color: #fff;
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      footer a:hover {
+        text-decoration: underline;
+      }
+
+      .random-icon {
+        position: fixed;
+        font-size: 1.5em;
+        opacity: 0.5;
+        z-index: 0;
+        pointer-events: none;
+        transition: transform 0.3s ease;
+      }
+
+      @media (max-width: 768px) {
+        .header-content {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .logo {
+          margin-bottom: 10px;
+        }
+
+        .right-header {
+          width: 100%;
+          justify-content: flex-end;
+        }
+
+        .search-bar {
+          margin: 10px 15px 10px 0;
+          width: 100%;
+        }
+
+        .search-bar input {
+          width: 100%;
+        }
+
+        .theme-toggle {
+          margin-top: 10px;
+        }
+
+        .datetime {
+          margin-top: 10px;
+          margin-left: 0;
+        }
+
+        .marquee-container {
+          margin-top: 10px;
+        }
+
+        .content {
+          grid-template-columns: 1fr;
+        }
+
+        .left-column {
+          padding: 10px;
+        }
+
+        .profile-section {
+          flex-direction: column;
+          text-align: center;
+        }
+
+        .profile-section img {
+          margin-right: 0;
+          margin-bottom: 10px;
+        }
+
+        .profile-section .text {
+          text-align: center;
+        }
+      }
+
+      @media print {
+        header,
+        footer,
+        .buttons,
+        .divider,
+        #particles,
+        .datetime,
+        .random-icon {
+          display: none;
+        }
+
+        body {
+          background: #fff;
+        }
+
+        .container {
+          box-shadow: none;
+          margin: 0;
+          padding: 0;
+        }
+
+        .content {
+          grid-template-columns: 1fr;
+        }
+
+        .left-column {
+          background: none;
+        }
+
+        .section {
+          transform: none;
+          box-shadow: none;
+        }
+
+        .profile-section {
+          transform: none;
+          flex-direction: column;
+          text-align: center;
+        }
+
+        .profile-section img {
+          animation: none;
+          margin-bottom: 10px;
+        }
+
+        .profile-section .text {
+          text-align: center;
+        }
+
+        .profile-section h2 {
+          animation: none;
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="header-content">
+        <div class="logo">
+          <span class="letter">Q</span>
+          <span class="letter">U</span>
+          <span class="letter">A</span>
+          <span class="letter">N</span>
+        </div>
+        <div class="right-header">
+          <div class="search-bar">
+            <input
+              type="text"
+              id="searchInput"
+              placeholder="Thông tin liên hệ, học vấn,..."
+            />
+            <button onclick="searchSections()">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+          <div class="theme-toggle">
+            <button id="theme-toggle" onclick="toggleDarkMode()">
+              <i class="fas fa-sun"></i>
+            </button>
+          </div>
+          <div class="datetime" id="datetime"></div>
+        </div>
+      </div>
+      <div class="marquee-container">
+        <div class="marquee" id="marqueeText"></div>
+      </div>
+    </header>
+    <canvas id="particles"></canvas>
+    <div class="container" id="cv-content">
+      <div class="profile-section">
+        <img src="anh.jpg" alt="Your Photo" />
+        <div class="text">
+          <h2>Huỳnh Minh Quân</h2>
+          <p>Lập trình viên ứng dụng di động</p>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="content">
+        <div class="left-column">
+          <div class="section left" data-section="thông tin liên hệ">
+            <h2>THÔNG TIN LIÊN HỆ</h2>
+            <ul>
+              <li>
+                <i class="fas fa-user"></i> <strong>Tên:</strong> Huỳnh Minh
+                Quân
+              </li>
+              <li>
+                <i class="fas fa-phone"></i
+                ><strong>Điện thoại: </strong>0812402665
+              </li>
+              <li>
+                <i class="fas fa-birthday-cake"></i
+                ><strong>Ngày sinh:</strong> 25/07/2005
+              </li>
+              <li>
+                <i class="fas fa-envelope"></i
+                ><strong>Email:</strong> minhquanthcs257@gmail.com
+              </li>
+              <li>
+                <i class="fas fa-venus-mars"></i><strong>Giới tính: </strong>Nam
+              </li>
+              <li>
+                <i class="fas fa-map-marker-alt"></i
+                ><strong>Địa chỉ: </strong> phường 14, quận Gò Vấp, Hồ Chí Minh
+              </li>
+              <li>
+                <i class="fab fa-github"></i><strong>GitHub: </strong>
+                <a
+                  href="https://github.com/quanhocdev"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style="color: #3498db"
+                >
+                  https://github.com/quanhocdev
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="section left" data-section="học vấn">
+            <h2>HỌC VẤN</h2>
+            <ul>
+              <li>
+                <i class="fas fa-graduation-cap"></i>
+                <strong>Ngành:</strong> Công nghệ Thông tin
+              </li>
+              <li>
+                <i class="fas fa-university"></i> <strong>Trường:</strong> Đại
+                học Giao thông Vận tải TP.HCM
+              </li>
+              <li>
+                <i class="fas fa-calendar-alt"></i>
+                <strong>Thời gian học:</strong> 2023 - 2027
+              </li>
+              <li>
+                <i class="fas fa-star"></i> <strong>Xếp loại:</strong> Giỏi
+              </li>
+            </ul>
+          </div>
+          <div class="section left" data-section="kĩ năng chuyên môn">
+            <h2>KĨ NĂNG CHUYÊN MÔN</h2>
+            <ul>
+              <li>
+                JAVA/HTML/CSS/JAVASCRIPT
+                <div class="progress-bar">
+                  <div class="progress" style="width: 90%"></div>
+                </div>
+              </li>
+              <li>
+                Spring Boot, Spring MVC, JPA, Hibernate
+                <div class="progress-bar">
+                  <div class="progress" style="width: 85%"></div>
+                </div>
+              </li>
+              <li>
+                Git, GitHub, VSCode, Docker, SQLite
+                <div class="progress-bar">
+                  <div class="progress" style="width: 80%"></div>
+                </div>
+              </li>
+              <li>
+                Other: Firebase, Swing, Figma, Bootstrap
+                <div class="progress-bar">
+                  <div class="progress" style="width: 75%"></div>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="section left" data-section="kĩ năng mềm">
+            <h2>KĨ NĂNG MỀM</h2>
+            <ul>
+              <li>Làm việc nhóm, thích nghi tốt</li>
+              <li>Tự học, chọn lọc thông tin</li>
+              <li>Thuyết trình, phản biện</li>
+              <li>Quản lý thời gian, ngân sách</li>
+              <li>Giao tiếp, lãnh đạo</li>
+            </ul>
+          </div>
+          <div class="section left" data-section="sở thích">
+            <h2>SỞ THÍCH</h2>
+            <ul>
+              <li>Tìm tòi, học hỏi những thứ mới</li>
+              <li>Du lịch, khám phá thiên nhiên</li>
+              <li>Nghe nhạc, Xem phim, Nấu ăn,..</li>
+            </ul>
+          </div>
+        </div>
+        <div class="right-column">
+          <div class="section right" data-section="mục tiêu nghề nghiệp">
+            <h2>MỤC TIÊU NGHỀ NGHIỆP</h2>
+            <p>
+              Là một lập trình viên ứng dụng di động mới tốt nghiệp, tôi mong
+              muốn được làm việc trong môi trường chuyên nghiệp để học hỏi kinh
+              nghiệm thực tế, rèn luyện kỹ năng lập trình với Android/iOS. Mục
+              tiêu trong 3–5 năm tới là trở thành một lập trình viên giỏi, có
+              thể tự triển khai và tối ưu các ứng dụng di động phục vụ hàng
+              triệu người dùng.
+            </p>
+          </div>
+          <div class="section right" data-section="kinh nghiệm làm việc">
+            <h2>KINH NGHIỆM LÀM VIỆC</h2>
+            <ul>
+              <li>
+                <strong
+                  >Thực tập sinh Android Developer - Công ty XYZ (2024-hiện
+                  tại):</strong
+                >
+                Hỗ trợ thiết kế giao diện người dùng và tích hợp API cho các dự
+                án nội bộ.
+              </li>
+              <li>
+                <strong
+                  >Gia sư tự do Toán, Tin học, Ngoại ngữ,.. (2023-2024):</strong
+                >
+                Qua quá trình làm gia sư, tôi nâng cao khả năng giải thích thuật
+                toán, trình bày logic rõ ràng – những kỹ năng cốt lõi giúp tôi
+                học tập đặc biệt là tính chủ động và làm việc hiệu quả trong
+                lĩnh vực phát triển ứng dụng di động.
+              </li>
+            </ul>
+          </div>
+          <div class="section right" data-section="tin học & ngoại ngữ">
+            <h2>TIN HỌC & NGOẠI NGỮ</h2>
+            <ul>
+              <li>
+                <strong>Tin học:</strong>
+                - Chứng chỉ
+                <strong>Microsoft Office Specialist: 950 điểm</strong><br />
+                - Gõ phím 10 ngón, sử dụng thành thạo máy tính, tìm kiếm tài
+                liệu nhanh, xử lý văn bản hiệu quả
+              </li>
+              <li>
+                <strong>Ngoại ngữ:</strong> Có khả năng đọc hiểu tài liệu kỹ
+                thuật, sử dụng tốt tài nguyên học lập trình bằng tiếng Anh, giao
+                tiếp cơ bản
+                <p><strong>- Tiếng Anh: TOEIC 650+</strong></p>
+                <p><strong>- Tiếng Trung: HSK 4</strong></p>
+              </li>
+            </ul>
+          </div>
+          <div class="section right" data-section="hoạt động & dự án">
+            <h2>HOẠT ĐỘNG & DỰ ÁN</h2>
+            <ul>
+              <li>
+                <strong>Dự án phần mềm Quản lý và Điều trị Hiếm Muộn:</strong>
+                <strong>Ngôn ngữ & công nghệ:</strong> Java, Spring Boot, MySQL,
+                HTML/CSS/JS<br />
+                <strong>Mô tả:</strong> Phần mềm hỗ trợ đặt lịch khám, tư vấn
+                điều trị hiếm muộn, và hệ thống trò chuyện giữa bệnh nhân và bác
+                sĩ. Hệ thống phân quyền (Admin, Bác sĩ, Bệnh nhân) với giao diện
+                người dùng thân thiện.
+              </li>
+              <li>
+                <strong>Hoạt động:</strong> Tham gia Mùa hè xanh, Xuân tình
+                nguyện, Khóa tu mùa hè mỗi năm
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="buttons">
+        <button class="btn download-pdf" onclick="downloadPDF()">
+          Tải CV (PDF)
+        </button>
+      </div>
+    </div>
+    <footer>
+      <p>
+        © 2025 Huỳnh Minh Quân |
+        <a href="mailto:minhquanthcs257@gmail.com">Contact Me</a> |
+        <a
+          href="https://github.com/quanhocdev"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          GitHub
+        </a>
+      </p>
+    </footer>
+
+    <script>
+      // Update marquee text with visitor's name
+      function updateMarquee() {
+        const name = localStorage.getItem("visitorName") || "Guest";
+        const marqueeText = document.getElementById("marqueeText");
+        marqueeText.innerHTML = `Xin chào ${name}, cảm ơn bạn đã ghé thăm hồ sơ xin việc của tôi. <i class="fas fa-heart" style="color: red;"></i> Chúc bạn có một trải nghiệm thú vị ở đây!`;
+      }
+
+      // Call the update function when the page loads
+      document.addEventListener("DOMContentLoaded", updateMarquee);
+
+      // Dark mode toggle
+      function toggleDarkMode() {
+        document.body.classList.toggle("dark-mode");
+        const themeToggle = document.getElementById("theme-toggle");
+        const icon = themeToggle.querySelector("i");
+        if (document.body.classList.contains("dark-mode")) {
+          icon.classList.remove("fa-sun");
+          icon.classList.add("fa-moon");
+        } else {
+          icon.classList.remove("fa-moon");
+          icon.classList.add("fa-sun");
+        }
+      }
+
+      // PDF download
+      function downloadPDF() {
+        const element = document.getElementById("cv-content");
+        const opt = {
+          margin: 0.5,
+          filename: "CV_HuynhMinhQuan.pdf",
+          image: { type: "jpeg", quality: 0.98 },
+          html2canvas: { scale: 2 },
+          jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
+        };
+        html2pdf().from(element).set(opt).save();
+      }
+
+      // Display and update date and time
+      function updateDateTime() {
+        const datetimeElements = document.querySelectorAll(".datetime");
+        const now = new Date();
+        const options = {
+          weekday: "short",
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+          hour12: false,
+        };
+        datetimeElements.forEach((element) => {
+          element.textContent = now.toLocaleString("en-US", options);
+        });
+      }
+
+      // Initialize and update datetime every second
+      document.addEventListener("DOMContentLoaded", () => {
+        updateDateTime();
+        setInterval(updateDateTime, 1000);
+      });
+
+      // Search and scroll to section
+      function searchSections() {
+        const input = document
+          .getElementById("searchInput")
+          .value.toLowerCase();
+        const sections = document.querySelectorAll(".section");
+        let targetSection = null;
+
+        // Xóa highlight cũ
+        sections.forEach((section) => {
+          section.classList.remove("highlight");
+        });
+
+        // Tìm section khớp với từ khóa
+        sections.forEach((section) => {
+          const sectionName = section
+            .getAttribute("data-section")
+            .toLowerCase();
+          if (sectionName.includes(input)) {
+            targetSection = section;
+          }
+        });
+
+        if (targetSection) {
+          // Cuộn mượt đến giữa section
+          targetSection.scrollIntoView({ behavior: "smooth", block: "center" });
+          // Thêm hiệu ứng highlight
+          targetSection.classList.add("highlight");
+          // Xóa highlight sau 2 giây
+          setTimeout(() => {
+            targetSection.classList.remove("highlight");
+          }, 2000);
+        }
+      }
+
+      // Kích hoạt tìm kiếm khi nhấn Enter
+      document
+        .getElementById("searchInput")
+        .addEventListener("keypress", function (e) {
+          if (e.key === "Enter") {
+            searchSections();
+          }
+        });
+
+      // Parallax effect for profile section
+      window.addEventListener("scroll", function () {
+        const profileSection = document.querySelector(".profile-section");
+        const scrollPosition = window.scrollY;
+        profileSection.classList.toggle("scrolled", scrollPosition > 50);
+      });
+
+      // Particle background
+      const canvas = document.getElementById("particles");
+      const ctx = canvas.getContext("2d");
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const particles = [];
+      const particleCount = 50;
+
+      class Particle {
+        constructor() {
+          this.x = Math.random() * canvas.width;
+          this.y = Math.random() * canvas.height;
+          this.size = Math.random() * 5 + 1;
+          this.speedX = Math.random() * 1 - 0.5;
+          this.speedY = Math.random() * 1 - 0.5;
+        }
+
+        update() {
+          this.x += this.speedX;
+          this.y += this.speedY;
+
+          if (this.size > 0.2) this.size -= 0.1;
+          if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+          if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+        }
+
+        draw() {
+          ctx.fillStyle = document.body.classList.contains("dark-mode")
+            ? "rgba(255, 255, 255, 0.5)"
+            : "rgba(52, 152, 219, 0.5)";
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+
+      function initParticles() {
+        for (let i = 0; i < particleCount; i++) {
+          particles.push(new Particle());
+        }
+      }
+
+      function animateParticles() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach((particle, index) => {
+          particle.update();
+          particle.draw();
+          if (particle.size <= 0.2) {
+            particles.splice(index, 1);
+            particles.push(new Particle());
+          }
+        });
+        requestAnimationFrame(animateParticles);
+      }
+
+      initParticles();
+      animateParticles();
+
+      window.addEventListener("resize", () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      });
+
+      // Glowing effect for logo letters
+      const letters = document.querySelectorAll(".logo .letter");
+      let currentIndex = 0;
+
+      function glowNextLetter() {
+        letters.forEach((letter) => letter.classList.remove("glow"));
+        letters[currentIndex].classList.add("glow");
+        currentIndex = (currentIndex + 1) % letters.length;
+      }
+
+      glowNextLetter();
+      setInterval(glowNextLetter, 1000);
+
+      // Random moving icons
+      const iconCount = 10;
+      const lightIcons = [
+        "fas fa-star",
+        "fas fa-sun",
+        "fas fa-cloud",
+        "fas fa-heart",
+      ];
+      const darkIcons = [
+        "fas fa-moon",
+        "fas fa-star",
+        "fas fa-rocket",
+        "fas fa-bolt",
+      ];
+
+      function createRandomIcons() {
+        for (let i = 0; i < iconCount; i++) {
+          const icon = document.createElement("div");
+          icon.classList.add("random-icon");
+          document.body.appendChild(icon);
+          updateIcon(icon);
+        }
+      }
+
+      function updateIcon(icon) {
+        const isDarkMode = document.body.classList.contains("dark-mode");
+        const icons = isDarkMode ? darkIcons : lightIcons;
+        const randomIconClass = icons[Math.floor(Math.random() * icons.length)];
+        icon.innerHTML = `<i class="${randomIconClass}"></i>`;
+        icon.style.left = `${Math.random() * window.innerWidth}px`;
+        icon.style.top = `${Math.random() * window.innerHeight}px`;
+        icon.style.color = isDarkMode ? "#1abc9c" : "#3498db";
+        let speedX = (Math.random() * 2 - 1) * 0.5;
+        let speedY = (Math.random() * 2 - 1) * 0.5;
+
+        function moveIcon() {
+          let x = parseFloat(icon.style.left);
+          let y = parseFloat(icon.style.top);
+          x += speedX;
+          y += speedY;
+
+          if (x < 0 || x > window.innerWidth) speedX *= -1;
+          if (y < 0 || y > window.innerHeight) speedY *= -1;
+
+          icon.style.left = `${x}px`;
+          icon.style.top = `${y}px`;
+          requestAnimationFrame(moveIcon);
+        }
+
+        moveIcon();
+      }
+
+      document.addEventListener("DOMContentLoaded", createRandomIcons);
+
+      // Update icons when toggling dark mode
+      document.getElementById("theme-toggle").addEventListener("click", () => {
+        const icons = document.querySelectorAll(".random-icon");
+        icons.forEach(updateIcon);
+      });
+    </script>
+  </body>
+</html>
