@@ -102,6 +102,68 @@
       align-items: center;
     }
 
+    .gift-boxes {
+      display: flex;
+      align-items: center;
+      margin-right: 15px;
+    }
+
+    .gift-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0 15px;
+      cursor: pointer;
+      transition: transform 0.3s, color 0.3s;
+    }
+
+    .gift-box:hover {
+      transform: scale(1.2);
+      color: #e74c3c;
+    }
+
+    .gift-box i {
+      margin-bottom: 5px;
+    }
+
+    .gift-box.small i {
+      font-size: 1.2em;
+    }
+
+    .gift-box.medium i {
+      font-size: 1.5em;
+    }
+
+    .gift-box.large i {
+      font-size: 1.8em;
+    }
+
+    .gift-box span {
+      font-size: 0.8em;
+      color: #333;
+    }
+
+    .dark-mode .gift-box span {
+      color: #ecf0f1;
+    }
+
+    .heart-counter {
+      display: flex;
+      align-items: center;
+      margin-right: 15px;
+      font-size: 1.2em;
+      color: #e74c3c;
+    }
+
+    .heart-counter i {
+      margin-right: 5px;
+      transition: transform 0.3s;
+    }
+
+    .heart-counter i.animate {
+      transform: scale(1.3);
+    }
+
     .search-bar {
       display: flex;
       align-items: center;
@@ -503,8 +565,64 @@
       font-size: 1.5em;
       opacity: 0.5;
       z-index: 0;
-      pointer-events: none;
       transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+
+    .random-icon:hover {
+      transform: scale(1.2);
+      opacity: 1;
+    }
+
+    .message-box {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(255, 255, 255, 0.95);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      z-index: 2000;
+      display: none;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    .dark-mode .message-box {
+      background: rgba(52, 73, 94, 0.95);
+      color: #ecf0f1;
+    }
+
+    .message-box p {
+      font-size: 1.2em;
+      margin-bottom: 20px;
+    }
+
+    .message-box button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      background: #e74c3c;
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    .message-box button:hover {
+      background: #c0392b;
+      transform: scale(1.05);
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translate(-50%, -60%);
+      }
+      to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+      }
     }
 
     @media (max-width: 768px) {
@@ -520,10 +638,24 @@
       .right-header {
         width: 100%;
         justify-content: flex-end;
+        flex-wrap: wrap;
+      }
+
+      .gift-boxes,
+      .heart-counter,
+      .search-bar {
+        margin: 5px 10px;
+      }
+
+      .gift-box {
+        margin: 0 10px;
+      }
+
+      .gift-box span {
+        font-size: 0.7em;
       }
 
       .search-bar {
-        margin: 10px 15px 10px 0;
         width: 100%;
       }
 
@@ -572,6 +704,9 @@
       footer,
       .buttons,
       .divider,
+      .heart-counter,
+      .gift-boxes,
+      .message-box,
       #particles,
       .datetime,
       .random-icon {
@@ -632,18 +767,36 @@
           <span class="letter">N</span>
         </div>
         <div class="right-header">
+          <div class="gift-boxes">
+            <div class="gift-box small" data-size="small" data-hearts="5">
+              <i class="fas fa-gift" title="Small Gift (5 Hearts)"></i>
+              <span>5 ❤️</span>
+            </div>
+            <div class="gift-box medium" data-size="medium" data-hearts="10">
+              <i class="fas fa-gift" title="Medium Gift (10 Hearts)"></i>
+              <span>10 ❤️</span>
+            </div>
+            <div class="gift-box large" data-size="large" data-hearts="15">
+              <i class="fas fa-gift" title="Large Gift (15 Hearts)"></i>
+              <span>15 ❤️</span>
+            </div>
+          </div>
+          <div class="heart-counter">
+            <i class="fas fa-heart"></i>
+            <span id="heartCount">0</span>
+          </div>
           <div class="search-bar">
             <input
               type="text"
               id="searchInput"
               placeholder="Thông tin liên hệ, học vấn,..."
             />
-            <button onclick="searchSections()">
+            <button id="searchButton">
               <i class="fas fa-search"></i>
             </button>
           </div>
           <div class="theme-toggle">
-            <button id="theme-toggle" onclick="toggleDarkMode()">
+            <button id="theme-toggle">
               <i class="fas fa-sun"></i>
             </button>
           </div>
@@ -847,10 +1000,14 @@
         </div>
       </div>
       <div class="buttons">
-        <button class="btn download-pdf" onclick="downloadPDF()">
+        <button class="btn download-pdf" id="downloadButton">
           Tải CV (PDF)
         </button>
       </div>
+    </div>
+    <div class="message-box" id="messageBox">
+      <p id="giftMessage"></p>
+      <button onclick="closeMessageBox()">Close</button>
     </div>
     <footer>
       <p>
@@ -866,6 +1023,28 @@
       </p>
     </footer>
     <script>
+      // Heart counter
+      let heartCount = 0;
+
+      // Motivational messages for each gift box
+      const motivationalMessages = {
+        small: [
+          "Chúc bạn vượt qua mọi khó khăn với tinh thần lạc quan!",
+          "Hãy luôn tin vào bản thân, bạn sẽ làm được mọi thứ!",
+          "Mỗi bước nhỏ hôm nay đều dẫn bạn đến những thành công lớn!",
+        ],
+        medium: [
+          "Hãy tiếp tục cố gắng, thành công đang chờ bạn phía trước!",
+          "Bạn là nguồn cảm hứng, hãy giữ vững đam mê của mình!",
+          "Từng ngày trôi qua, bạn đang tiến gần hơn đến ước mơ!",
+        ],
+        large: [
+          "Bạn có sức mạnh để thay đổi thế giới, hãy tiếp tục tỏa sáng!",
+          "Mọi thử thách đều là cơ hội để bạn trưởng thành hơn!",
+          "Hãy mơ lớn và không ngừng nỗ lực, bạn sẽ chinh phục tất cả!",
+        ],
+      };
+
       // Update marquee text with visitor's name
       function updateMarquee() {
         const name = localStorage.getItem("visitorName") || "Guest";
@@ -875,6 +1054,32 @@
 
       // Call the update function when the page loads
       document.addEventListener("DOMContentLoaded", updateMarquee);
+
+      // Check time and set theme accordingly
+      function setThemeBasedOnTime() {
+        const now = new Date();
+        const hours = now.getHours();
+        const minutes = now.getMinutes();
+        const seconds = now.getSeconds();
+        const timeInSeconds = hours * 3600 + minutes * 60 + seconds;
+        const startDarkMode = 18 * 3600; // 18:00:00
+        const endDarkMode = 6 * 3600; // 06:00:00
+
+        const isDarkTime =
+          timeInSeconds >= startDarkMode || timeInSeconds < endDarkMode;
+
+        if (isDarkTime) {
+          document.body.classList.add("dark-mode");
+          const icon = document.querySelector("#theme-toggle i");
+          icon.classList.remove("fa-sun");
+          icon.classList.add("fa-moon");
+        } else {
+          document.body.classList.remove("dark-mode");
+          const icon = document.querySelector("#theme-toggle i");
+          icon.classList.remove("fa-moon");
+          icon.classList.add("fa-sun");
+        }
+      }
 
       // Dark mode toggle
       function toggleDarkMode() {
@@ -888,6 +1093,8 @@
           icon.classList.remove("fa-moon");
           icon.classList.add("fa-sun");
         }
+        const icons = document.querySelectorAll(".random-icon");
+        icons.forEach(updateIcon);
       }
 
       // PDF download
@@ -922,12 +1129,6 @@
         });
       }
 
-      // Initialize and update datetime every second
-      document.addEventListener("DOMContentLoaded", () => {
-        updateDateTime();
-        setInterval(updateDateTime, 1000);
-      });
-
       // Search and scroll to section
       function searchSections() {
         const input = document
@@ -936,12 +1137,10 @@
         const sections = document.querySelectorAll(".section");
         let targetSection = null;
 
-        // Xóa highlight cũ
         sections.forEach((section) => {
           section.classList.remove("highlight");
         });
 
-        // Tìm section khớp với từ khóa
         sections.forEach((section) => {
           const sectionName = section
             .getAttribute("data-section")
@@ -952,32 +1151,41 @@
         });
 
         if (targetSection) {
-          // Cuộn mượt đến giữa section
           targetSection.scrollIntoView({ behavior: "smooth", block: "center" });
-          // Thêm hiệu ứng highlight
           targetSection.classList.add("highlight");
-          // Xóa highlight sau 2 giây
           setTimeout(() => {
             targetSection.classList.remove("highlight");
           }, 2000);
         }
       }
 
-      // Kích hoạt tìm kiếm khi nhấn Enter
-      document
-        .getElementById("searchInput")
-        .addEventListener("keypress", function (e) {
-          if (e.key === "Enter") {
-            searchSections();
-          }
-        });
+      // Show motivational message
+      function showMessage(message) {
+        const messageBox = document.getElementById("messageBox");
+        const giftMessage = document.getElementById("giftMessage");
+        giftMessage.textContent = message;
+        messageBox.style.display = "block";
+      }
 
-      // Parallax effect for profile section
-      window.addEventListener("scroll", function () {
-        const profileSection = document.querySelector(".profile-section");
-        const scrollPosition = window.scrollY;
-        profileSection.classList.toggle("scrolled", scrollPosition > 50);
-      });
+      // Close message box
+      function closeMessageBox() {
+        const messageBox = document.getElementById("messageBox");
+        messageBox.style.display = "none";
+      }
+
+      // Handle gift box click
+      function handleGiftBoxClick(size, requiredHearts) {
+        if (heartCount >= requiredHearts) {
+          const messages = motivationalMessages[size];
+          const randomMessage =
+            messages[Math.floor(Math.random() * messages.length)];
+          heartCount -= requiredHearts;
+          document.getElementById("heartCount").textContent = heartCount;
+          showMessage(randomMessage);
+        } else {
+          showMessage(`Bạn cần ${requiredHearts} trái tim để mở hộp quà này!`);
+        }
+      }
 
       // Particle background
       const canvas = document.getElementById("particles");
@@ -1056,20 +1264,10 @@
       glowNextLetter();
       setInterval(glowNextLetter, 1000);
 
-      // Random moving icons
+      // Random moving icons (hearts only)
       const iconCount = 10;
-      const lightIcons = [
-        "fas fa-star",
-        "fas fa-sun",
-        "fas fa-cloud",
-        "fas fa-heart",
-      ];
-      const darkIcons = [
-        "fas fa-moon",
-        "fas fa-star",
-        "fas fa-rocket",
-        "fas fa-bolt",
-      ];
+      const lightIcons = ["fas fa-heart"];
+      const darkIcons = ["fas fa-heart"];
 
       function createRandomIcons() {
         for (let i = 0; i < iconCount; i++) {
@@ -1084,10 +1282,9 @@
         const isDarkMode = document.body.classList.contains("dark-mode");
         const icons = isDarkMode ? darkIcons : lightIcons;
         const randomIconClass = icons[Math.floor(Math.random() * icons.length)];
-        icon.innerHTML = `<i class="${randomIconClass}"></i>`;
+        icon.innerHTML = `<i class="${randomIconClass}" style="color: #e74c3c;"></i>`;
         icon.style.left = `${Math.random() * window.innerWidth}px`;
         icon.style.top = `${Math.random() * window.innerHeight}px`;
-        icon.style.color = isDarkMode ? "#1abc9c" : "#3498db";
         let speedX = (Math.random() * 2 - 1) * 0.5;
         let speedY = (Math.random() * 2 - 1) * 0.5;
 
@@ -1105,15 +1302,65 @@
           requestAnimationFrame(moveIcon);
         }
 
+        icon.addEventListener("click", () => {
+          heartCount++;
+          const heartCounter = document.getElementById("heartCount");
+          heartCounter.textContent = heartCount;
+          const heartIcon = document.querySelector(".heart-counter i");
+          heartIcon.classList.add("animate");
+          setTimeout(() => heartIcon.classList.remove("animate"), 300);
+          icon.remove();
+          const newIcon = document.createElement("div");
+          newIcon.classList.add("random-icon");
+          document.body.appendChild(newIcon);
+          updateIcon(newIcon);
+        });
+
         moveIcon();
       }
 
-      document.addEventListener("DOMContentLoaded", createRandomIcons);
+      // Initialize and update everything on page load
+      document.addEventListener("DOMContentLoaded", () => {
+        updateDateTime();
+        setInterval(updateDateTime, 1000);
+        setThemeBasedOnTime();
+        createRandomIcons();
 
-      // Update icons when toggling dark mode
-      document.getElementById("theme-toggle").addEventListener("click", () => {
-        const icons = document.querySelectorAll(".random-icon");
-        icons.forEach(updateIcon);
+        // Event listeners for buttons
+        document
+          .getElementById("searchButton")
+          .addEventListener("click", searchSections);
+        document
+          .getElementById("theme-toggle")
+          .addEventListener("click", toggleDarkMode);
+        document
+          .getElementById("downloadButton")
+          .addEventListener("click", downloadPDF);
+
+        // Event listeners for gift boxes
+        document.querySelectorAll(".gift-box").forEach((box) => {
+          box.addEventListener("click", () => {
+            const size = box.getAttribute("data-size");
+            const requiredHearts = parseInt(box.getAttribute("data-hearts"));
+            handleGiftBoxClick(size, requiredHearts);
+          });
+        });
+
+        // Search on Enter key
+        document
+          .getElementById("searchInput")
+          .addEventListener("keypress", function (e) {
+            if (e.key === "Enter") {
+              searchSections();
+            }
+          });
+      });
+
+      // Parallax effect for profile section
+      window.addEventListener("scroll", function () {
+        const profileSection = document.querySelector(".profile-section");
+        const scrollPosition = window.scrollY;
+        profileSection.classList.toggle("scrolled", scrollPosition > 50);
       });
     </script>
   </body>
