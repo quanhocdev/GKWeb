@@ -768,17 +768,17 @@
         </div>
         <div class="right-header">
           <div class="gift-boxes">
-            <div class="gift-box small" data-size="small" data-hearts="5">
+            <div class="gift-box small" data-size="small" data-hearts="3">
               <i class="fas fa-gift" title="Small Gift (5 Hearts)"></i>
+              <span>3 ❤️</span>
+            </div>
+            <div class="gift-box medium" data-size="medium" data-hearts="5">
+              <i class="fas fa-gift" title="Medium Gift (10 Hearts)"></i>
               <span>5 ❤️</span>
             </div>
-            <div class="gift-box medium" data-size="medium" data-hearts="10">
-              <i class="fas fa-gift" title="Medium Gift (10 Hearts)"></i>
-              <span>10 ❤️</span>
-            </div>
-            <div class="gift-box large" data-size="large" data-hearts="15">
+            <div class="gift-box large" data-size="large" data-hearts="7">
               <i class="fas fa-gift" title="Large Gift (15 Hearts)"></i>
-              <span>15 ❤️</span>
+              <span>7 ❤️</span>
             </div>
           </div>
           <div class="heart-counter">
@@ -1029,9 +1029,14 @@
       // Motivational messages for each gift box
       const motivationalMessages = {
         small: [
-          "Chúc bạn vượt qua mọi khó khăn với tinh thần lạc quan!",
-          "Hãy luôn tin vào bản thân, bạn sẽ làm được mọi thứ!",
-          "Mỗi bước nhỏ hôm nay đều dẫn bạn đến những thành công lớn!",
+          "Nói chuyện với bố mẹ nhiều hơn nhé! Họ yêu bạn lắm đấy!",
+          "Đừng đối xử tệ với sức khỏe mình nữa! Ngủ sớm đi!",
+          "Một năm có 365 ngày, không phải 1 ngày có 365 lần! Thay đổi đi!",
+          "Làm người khác hạnh phúc là một trong những cách để bạn hạnh phúc!",
+          "Ngoại hình hút cơ hội, ngoại ngữ tạo cơ hội, ngoại giao giữ cơ hội!",
+          "Đừng bỏ bữa, uống nhiều nước, ăn nhiều rau, tập thể dục thường xuyên nhé!",
+          "Việc nhỏ làm đều, sẽ thành kết quả lớn!",
+          "Bước đi vững chãi, lưng thẳng, mắt nhìn thẳng!",
         ],
         medium: [
           "Hãy tiếp tục cố gắng, thành công đang chờ bạn phía trước!",
@@ -1039,9 +1044,15 @@
           "Từng ngày trôi qua, bạn đang tiến gần hơn đến ước mơ!",
         ],
         large: [
-          "Bạn có sức mạnh để thay đổi thế giới, hãy tiếp tục tỏa sáng!",
-          "Mọi thử thách đều là cơ hội để bạn trưởng thành hơn!",
-          "Hãy mơ lớn và không ngừng nỗ lực, bạn sẽ chinh phục tất cả!",
+          "Đôi khi, bạn không phải người vui nhất ở sinh nhật của chính mình. Người vui nhất là người dành hết tâm huyết để bạn có một sinh nhật thật vui vẻ! Đừng quên cảm ơn họ nhé!",
+          "Bạn biết kim tự tháp không? Khi bạn đứng trên mặt đất nhìn nó bạn sẽ nói nó hình tam giác, nhưng người khác ở trên cao nhìn xuống sẽ nói nó hình vuông! Nhưng bạn đâu có sai! Mỗi người sẽ có quan điểm và cách nhìn nhận vấn đề khác nhau...vì góc nhìn chúng ta không giống nhau, đừng ép ai làm hài lòng bạn, đừng vì một lời nói của ai đó mà bạn cảm thấy đau lòng nhé",
+          "Mọi người thường chỉ mặc bộ đồ đẹp vài lần rồi cất vào tủ nhưng thường xuyên mặc những bộ đồ bình thường mọi ngày, đơn giản họ cảm thấy thoải mái với nó. Cuộc sống cũng vậy, cái đi với mình lâu hơn là cái hợp và tốt với mình chứ không chỉ là cái đẹp trong mắt mình!",
+          "Khi ông trời muốn đổi vận cho bạn, những người không xứng đáng sẽ rời xa bạn, không bằng cách này cũng là cách khác. Bạn sẽ trải qua mất mát, cô đơn trước khi bạn có được sự yên bình và tự do!",
+          "Học cách tha thứ và biết ơn với mọi người, mỗi người đến với bạn sẽ đem lại cho bạn một bài học, một trải nghiệm quý giá để bạn trưởng thành hơn, dù tốt hay xấu cũng đừng trách họ nhé!",
+          "Bạn có bao giờ vô tình nghe được một bài nhạc và cảm thấy rất hay không? Nhưng khi bạn đi tìm và nghe lại thì nó không còn hay nữa đúng không? Khổng Tử có câu nói thế này: “Dục tốc bất đạt”. Cái gì đến rồi sẽ đến đừng vội vàng tìm lấy nó...bởi những thứ tình cờ đến với bạn bao giờ cũng tốt đẹp hơn và bền lâu hơn thứ mình cố tình muốn có được!",
+          "Đừng thấy người khác thành công sớm mà lo lắng sốt ruột, cảm thấy mình nhỏ bé. Có hoa nở vào mùa xuân, hoa muốn chờ hè, hoa thì chọn thu, hoa lại chờ đông...nhưng sẽ chẳng hoa nào bị bỏ quên cả. Hãy cứ đi, cứ học, cứ làm, chăm chỉ từng ngày rồi sẽ đến lúc nở rộ! Đừng từ bỏ nhé!",
+          "Đồ cay ăn vào thì nóng và rát...nhưng rồi cũng thấy ấm bụng. Cuộc sống cũng vậy, có những điều khiến bạn đau lòng, nhưng nếu đi qua được nó lại trở thành thứ khiến bạn mạnh mẽ và trưởng thành hơn! Cố gắng nhé!",
+          "Mọi người chỉ tiếc nuối với những việc mình chưa làm chứ không phải việc chúng ta đã làm. Thử đi...sai rồi sửa! Thử đi...lỡ được thì sao! Trên đời này ngoài chuyện sống còn ra thì đừng sợ gì cả, cơ hội đến với bạn thì bạn phải nắm bắt lấy, đừng bỏ lỡ để sau này phải hối hận nhé!",
         ],
       };
 
